@@ -1,0 +1,126 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2820
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 @startuml\
+class Artifact \{\
+    - id: int\
+    - name: String\
+    - type: ArtifactType\
+    - description: String\
+    - engagementTime: int\
+    + Artifacts(id: int, name: String, type: ArtifactType, engagementTime: int, description: String)\
+    + getId(): int\
+    + setId(id: int): void\
+    + getName(): String\
+    + setName(name: String): void\
+    + getDescription(): String\
+    + setDescription(description: String): void\
+    + getEngagementTime(): int\
+    + setEngagementTime(engagementTime: int): void\
+    + displayArtifactDetails(): void\
+    + displaySimpleArtifactDetails(): void\
+    + nextID(artifacts: ArrayList<Artifacts>): int\
+    + bubbleSort(list: ArrayList<Artifacts>): void\
+    + displayArtifacts(artifacts: ArrayList<Artifacts>): void\
+    + searchPartName(str: String, artifacts: ArrayList<Artifacts>): void\
+    + searchName(str: String, artifacts: ArrayList<Artifacts>): void\
+    + searchID(id: int, artifacts: ArrayList<Artifacts>): void\
+    + searchType(type: ArtifactType, artifacts: ArrayList<Artifacts>): void\
+    + sortArtifactsbyID(artifacts: ArrayList<Artifacts>): void\
+    + deleteArtifact(artifacts: ArrayList<Artifacts>): void\
+    + addArtifact(artifacts: ArrayList<Artifacts>): void\
+    + updateArtifact(artifacts: ArrayList<Artifacts>): void\
+    + viewArtifacts(artifacts: ArrayList<Artifacts>): void\
+\}\
+\
+enum ArtifactType \{\
+    PAINTING("Painting")\
+    SCULPTURE("Sculpture")\
+    DIGITAL("Digital")\
+    INTERACTIVE("Interactive")\
+    TACTILE("Tactile")\
+    OTHER("Other")\
+    \
+    - typeName: String\
+    + ArtifactType(typeName: String)\
+    + getTypeName(): String\
+    + displayTypesWithNumbers(): void\
+    + findFromNumber(id: int): ArtifactType\
+\}\
+\
+class Exhibits \{\
+    - exhibitID: int\
+    - name: String\
+    - description: String\
+    - artifacts: ArrayList<Artifact>\
+    + Exhibits(exhibitID: int, name: String, description: String, artifacts: ArrayList<Artifact>)\
+    + getExhibitID(): int\
+    + setExhibitID(exhibitID: int): void\
+    + getName(): String\
+    + setName(name: String): void\
+    + getDescription(): String\
+    + setDescription(description: String): void\
+    + getArtifacts(): ArrayList<Artifact>\
+    + setArtifacts(artifacts: ArrayList<Artifact>): void\
+    + addArtifactToExhibit(artifact: Artifact): void\
+    + displayExhibitDetails(): void\
+    + displaySimpleExhibitDetails(): void\
+\}\
+\
+class AnnualPlan \{\
+    - halls: ArrayList<ArrayList<Exhibits>>\
+    - yearName: String\
+    + AnnualPlan(yearOffset: int)\
+    + getYearName(): String\
+    + addExhibit(hallNumber: int, monthIndex: int, exhibit: Exhibits)\
+    + getExhibit(hallNumber: int, monthIndex: int): Exhibits\
+    + displayHallExhibits(hallNumber: int)\
+    + displayMonthExhibits(monthIndex: int)\
+    + addExhibitToSchedule(annualPlan: AnnualPlan, exhibit: ArrayList<Exhibits>)\
+    + viewSchedule(annualPlan: AnnualPlan)\
+    + removeExhibitFromSchedule(annualPlan: AnnualPlan)\
+\}\
+\
+class Route \{\
+    - artifact: Artifact\
+    - sign: String\
+    + Route(artifact: Artifact, sign: String)\
+    + getArtifact(): Artifact\
+    + getSign(): String\
+    + toString(): String\
+    + addRoute(routes: ArrayList<Route>, route: Route)\
+\}\
+\
+class Menu \{\
+    - items: String[]\
+    - title: String\
+    - input: Scanner\
+    + Menu(title: String, data: String[])\
+    - display()\
+    + getUserChoice(): int\
+\}\
+\
+class Resources \{\
+    + mainOptions: String[]\
+\}\
+\
+class Validations \{\
+    + validateName(name: String): boolean\
+    + validateDescription(description: String): boolean\
+    - isInteger(str: String): boolean\
+\}\
+\
+' Relationships\
+AnnualPlan "1" -- "many" Exhibits\
+Exhibits "1" -- "many" Artifact\
+Artifact "1" -- "1" ArtifactType\
+Menu "1" -- "1" Resources \
+Route "1" -- "1" Artifact\
+Validations "static" -- "1" Artifact \
+Validations "static" -- "1" Route\
+@enduml\
+}
